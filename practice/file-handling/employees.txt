@@ -1,4 +1,4 @@
-John
-Sarah
-Mike
-David
+John,50000
+Sarah,60000
+Mike,45000
+David,55000
