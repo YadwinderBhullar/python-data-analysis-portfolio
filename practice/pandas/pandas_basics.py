@@ -238,4 +238,3 @@ print("\nAVERAGE ANNUAL SALARY:")
 print(df["Annual_Salary"].mean())
 
 
-
