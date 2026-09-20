@@ -15,13 +15,27 @@ cursor = connection.cursor()
 # What are the top 5 app categories by number of applications?
 # ------------------------------------------------------------
 
+
 cursor.execute("""
-    SELECT Category, COUNT(*) AS App_Count
-    FROM apps
-    GROUP BY Category
-    ORDER BY App_Count DESC
-    LIMIT 5;
+    SELECT
+        Rating_Category,
+        COUNT(*) AS App_Count,
+        ROUND(COUNT(*) * 100.0 / 10000, 2) AS Percentage
+    FROM (
+        SELECT
+            CASE
+                WHEN Rating >= 4.5 THEN 'Excellent'
+                WHEN Rating >= 4.0 THEN 'Good'
+                WHEN Rating >= 3.0 THEN 'Average'
+                ELSE 'Poor'
+            END AS Rating_Category
+        FROM apps
+    )
+    GROUP BY Rating_Category
+    ORDER BY App_Count DESC;
 """)
+   
+
 
 # Store results
 results = cursor.fetchall()
